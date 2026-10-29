@@ -1,0 +1,11 @@
+{
+  "id": "ak47",
+  "name": "Assault rifle",
+  "kind": "ranged",
+  "range": 55,
+  "damage": 18,
+  "cooldown": 0.11,
+  "model": "ak47.glb",
+  "author": "Quaternius",
+  "licence": "CC0-1.0"
+}

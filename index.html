@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Kathmandu</title>
+<link rel="icon" href="data:,">
+<script type="importmap">
+{
+  "imports": {
+    "three": "./vendor/three.module.js",
+    "three/addons/": "./vendor/addons/"
+  }
+}
+</script>
+<style>
+  html, body { margin: 0; height: 100%; background: #1c1814; color: #f4efe6; font-family: Georgia, "Times New Roman", serif; }
+  canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+  #hud { position: fixed; left: 12px; top: 12px; right: 12px; font: 14px/1.35 system-ui, sans-serif; text-shadow: 0 1px 2px #000; pointer-events: none; }
+  #gate { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(18, 14, 10, 0.78); }
+  #gate[hidden] { display: none; }
+  .card { width: min(440px, 92vw); background: #2c261f; border: 1px solid #8a704c; padding: 22px 22px 18px; }
+  h1 { font-size: 28px; margin: 0 0 4px; font-weight: 500; }
+  .sub { margin: 0 0 14px; color: #d9cbb8; font-family: system-ui, sans-serif; font-size: 14px; }
+  label { display: flex; justify-content: space-between; gap: 12px; font: 13px system-ui, sans-serif; margin: 8px 0; }
+  input[type="range"] { width: 58%; }
+  input[type="color"] { width: 58%; height: 28px; border: 0; background: transparent; padding: 0; }
+  button { margin-top: 12px; font: 16px system-ui, sans-serif; background: #9a3b22; color: white; border: 0; padding: 10px 16px; cursor: pointer; }
+  #stick { display: none; position: fixed; left: 16px; bottom: 16px; width: 120px; height: 120px; border-radius: 60px; background: rgba(255,255,255,0.14); border: 2px solid rgba(255,255,255,0.35); touch-action: none; }
+  #nub { width: 48px; height: 48px; border-radius: 24px; background: rgba(255,255,255,0.75); position: absolute; left: 36px; top: 36px; }
+  @media (pointer: coarse) { #stick { display: block; } }
+</style>
+</head>
+<body>
+<canvas id="view"></canvas>
+<div id="hud">Kathmandu. Loading stays behind this page until you walk in.</div>
+<div id="gate">
+  <form class="card" id="card">
+    <h1>Kathmandu</h1>
+    <p class="sub">Durbar Square. Make yourself, then walk. You are 1.68 m unless you change it.</p>
+    <label>Skin <input id="skin" type="color" value="#c68642"></label>
+    <label>Hair <input id="hair" type="color" value="#2a211c"></label>
+    <label>Shirt <input id="shirt" type="color" value="#8c3b2a"></label>
+    <label>Height <span id="hm">1.68 m</span></label>
+    <input id="height" type="range" min="1.50" max="1.90" step="0.01" value="1.68">
+    <button id="play" type="submit">Walk in</button>
+  </form>
+</div>
+<div id="stick"><div id="nub"></div></div>
+<script>
+document.getElementById("height").oninput = function () {
+  document.getElementById("hm").textContent = Number(this.value).toFixed(2) + " m";
+};
+document.getElementById("card").onsubmit = function (ev) {
+  ev.preventDefault();
+  window.__avatar = {
+    skin: document.getElementById("skin").value,
+    hair: document.getElementById("hair").value,
+    shirt: document.getElementById("shirt").value,
+    height: Number(document.getElementById("height").value)
+  };
+  document.getElementById("play").disabled = true;
+  var s = document.createElement("script");
+  s.type = "module";
+  s.src = "client/play.js";
+  document.body.appendChild(s);
+};
+</script>
+</body>
+</html>

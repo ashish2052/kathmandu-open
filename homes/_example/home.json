@@ -1,0 +1,10 @@
+{
+  "name": "Example marker (not placed in the world)",
+  "author": "Shrestha Consolidated",
+  "licence": "CC0-1.0",
+  "lat": 27.704,
+  "lon": 85.3062,
+  "footprint": [[0, 0], [4, 0], [4, 6], [0, 6]],
+  "height": 3.0,
+  "model": "model.glb"
+}

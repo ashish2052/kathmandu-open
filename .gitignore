@@ -1,0 +1,5 @@
+_copy_open.py
+_inventory.py
+_inventory.json
+__pycache__/
+*.pyc

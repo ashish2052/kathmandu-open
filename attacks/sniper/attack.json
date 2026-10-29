@@ -1,0 +1,11 @@
+{
+  "id": "sniper",
+  "name": "Sniper rifle",
+  "kind": "ranged",
+  "range": 120,
+  "damage": 55,
+  "cooldown": 1.1,
+  "model": "sniper.glb",
+  "author": "Quaternius",
+  "licence": "CC0-1.0"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "pistol",
+  "name": "Pistol",
+  "kind": "ranged",
+  "range": 28,
+  "damage": 20,
+  "cooldown": 0.28,
+  "model": "pistol.glb",
+  "author": "Quaternius",
+  "licence": "CC0-1.0"
+}

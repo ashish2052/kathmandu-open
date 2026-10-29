@@ -1,0 +1,5 @@
+{
+  "homes": ["_example"],
+  "features": [],
+  "attacks": ["pistol", "ak47", "sniper"]
+}
