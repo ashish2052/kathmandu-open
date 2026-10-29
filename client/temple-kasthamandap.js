@@ -34,18 +34,19 @@ function tex(file, srgb, rot) {
   return t;
 }
 function pbr(name, o = {}) {
-  const arm = tex(name + "_arm.jpg", false, o.rot);
   const m = new THREE.MeshStandardMaterial({
     map: tex(name + "_Diffuse.jpg", true, o.rot),
-    normalMap: tex(name + "_nor_gl.jpg", false, o.rot),
-    roughnessMap: arm,
-    aoMap: arm,
-    roughness: 1,
+    roughness: 0.92,
     metalness: 0,
     color: o.tint ?? 0xffffff,
     side: o.side ?? THREE.FrontSide,
   });
-  m.normalScale.set(o.n ?? 1, o.n ?? 1);
+  (window.__texLater = window.__texLater || []).push(() => {
+    m.normalMap = tex(name + "_nor_gl.jpg", false, o.rot);
+    m.normalScale.set(o.n ?? 1, o.n ?? 1);
+    m.roughnessMap = tex(name + "_arm.jpg", false, o.rot);
+    m.needsUpdate = true;
+  });
   return m;
 }
 function canvasTex(w, h, draw) {

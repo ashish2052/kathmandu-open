@@ -14,10 +14,11 @@
 }
 </script>
 <style>
-  html, body { margin: 0; height: 100%; background: #1c1814; color: #f4efe6; font-family: Georgia, "Times New Roman", serif; }
-  canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+  html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #1c1814; color: #f4efe6; font-family: Georgia, "Times New Roman", serif; }
+  body { position: fixed; inset: 0; width: 100vw; height: 100vh; overscroll-behavior: none; }
+  canvas { position: fixed; inset: 0; display: block; width: 100vw; height: 100vh; touch-action: none; }
   #hud { position: fixed; left: 12px; top: 12px; right: 12px; font: 14px/1.35 system-ui, sans-serif; text-shadow: 0 1px 2px #000; pointer-events: none; }
-  #gate { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(18, 14, 10, 0.78); }
+  #gate { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(18, 14, 10, 0.78); overflow: auto; }
   #gate[hidden] { display: none; }
   .card { width: min(440px, 92vw); background: #2c261f; border: 1px solid #8a704c; padding: 22px 22px 18px; }
   h1 { font-size: 28px; margin: 0 0 4px; font-weight: 500; }
@@ -39,10 +40,14 @@
     <h1>Kathmandu</h1>
     <p class="sub">Durbar Square. Make yourself, then walk. You are 1.68 m unless you change it.</p>
     <label>Skin <input id="skin" type="color" value="#c68642"></label>
-    <label>Hair <input id="hair" type="color" value="#2a211c"></label>
-    <label>Shirt <input id="shirt" type="color" value="#8c3b2a"></label>
+    <label>Hair <input id="hair" type="color" value="#1a140f"></label>
+    <label>Shirt <input id="shirt" type="color" value="#2a3544"></label>
     <label>Height <span id="hm">1.68 m</span></label>
     <input id="height" type="range" min="1.50" max="1.90" step="0.01" value="1.68">
+    <label>Build <span id="bm">average</span></label>
+    <input id="build" type="range" min="0" max="1" step="0.01" value="0.42">
+    <label>Face <span id="fm">glasses</span></label>
+    <input id="face" type="range" min="0" max="1" step="0.01" value="0.78">
     <button id="play" type="submit">Walk in</button>
   </form>
 </div>
@@ -51,13 +56,23 @@
 document.getElementById("height").oninput = function () {
   document.getElementById("hm").textContent = Number(this.value).toFixed(2) + " m";
 };
+document.getElementById("build").oninput = function () {
+  var v = Number(this.value);
+  document.getElementById("bm").textContent = v < 0.34 ? "slim" : v > 0.66 ? "broad" : "average";
+};
+document.getElementById("face").oninput = function () {
+  var v = Number(this.value);
+  document.getElementById("fm").textContent = v < 0.45 ? "long" : "glasses";
+};
 document.getElementById("card").onsubmit = function (ev) {
   ev.preventDefault();
   window.__avatar = {
     skin: document.getElementById("skin").value,
     hair: document.getElementById("hair").value,
     shirt: document.getElementById("shirt").value,
-    height: Number(document.getElementById("height").value)
+    height: Number(document.getElementById("height").value),
+    build: Number(document.getElementById("build").value),
+    face: Number(document.getElementById("face").value)
   };
   document.getElementById("play").disabled = true;
   var s = document.createElement("script");

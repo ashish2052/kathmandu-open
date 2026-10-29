@@ -752,18 +752,26 @@ export function installShivaParvati(scene, data, buildings, holds) {
     }`,
   };
   const pbr = (name, kind, o = {}) => {
-    const arm = tex(name + "_arm.jpg", false);
     const m = new THREE.MeshStandardMaterial({
       map: tex(name + "_Diffuse.jpg", true),
-      normalMap: o.normal || tex(name + "_nor_gl.jpg", false),
-      roughnessMap: arm,
-      aoMap: o.ao || arm,
-      roughness: o.rough ?? 1,
+      roughness: o.rough ?? 0.92,
       metalness: 0,
       color: o.tint ?? 0xffffff,
       side: o.side ?? THREE.FrontSide,
     });
-    m.normalScale.set(o.n ?? 1, o.n ?? 1);
+    if (o.normal) {
+      m.normalMap = o.normal;
+      m.normalScale.set(o.n ?? 1, o.n ?? 1);
+    }
+    if (o.ao) m.aoMap = o.ao;
+    (window.__texLater = window.__texLater || []).push(() => {
+      if (!o.normal) {
+        m.normalMap = tex(name + "_nor_gl.jpg", false);
+        m.normalScale.set(o.n ?? 1, o.n ?? 1);
+      }
+      if (!o.ao) m.roughnessMap = tex(name + "_arm.jpg", false);
+      m.needsUpdate = true;
+    });
     return weather(m, kind, defs);
   };
   const brick = pbr("brick_wall_006", 0, { tint: 0xf2d9c8, n: 1.1 });

@@ -22,11 +22,13 @@ https://polyhaven.com/license — 1K JPG, diffuse + OpenGL normal + ARM, file na
 | stone_tiles_02 | https://polyhaven.com/a/stone_tiles_02 |
 | weathered_brown_planks | https://polyhaven.com/a/weathered_brown_planks |
 
-Ground uses `cobblestone_pavement_Diffuse.jpg`.
+Ground uses `cobblestone_pavement_Diffuse.jpg` on the Basantapur footprint only. Streets in `data/roads.json` are OpenStreetMap highway ways, same ODbL licence as the footprints.
+
+Normal and roughness maps on the temples start loading after the first frames so the opening transfer stays smaller. Houses more than 150 m from the spawn import after the square is up.
 
 ## Own work
 
-Temple meshes, house meshes, the player body, canvas carvings, and `homes/_example/model.glb` are project geometry. No downloaded scan is in this repository.
+Temple meshes, house meshes, the sky gradient, canvas carvings, and `homes/_example/model.glb` are project geometry. The player (`client/body.js`) is an original rigged adult male with an original idle and walk. Default face morphs (glasses, jaw, nose, short dark hair) were tuned by eye. No photograph is shipped or used as a texture. No downloaded scan is in this repository.
 
 ## Guns (not under assets/; listed so the licence sits with the files)
 
